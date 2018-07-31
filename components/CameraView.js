@@ -80,7 +80,7 @@ export default class CameraView extends React.Component {
             }}
           >
             <SafeAreaView style={{ flex: 1 }}>
-              <Headline>Fruit App</Headline>
+              <Headline>Cloud Vision App</Headline>
               <ButtonRow>
                 <Button
                   onPress={() => {

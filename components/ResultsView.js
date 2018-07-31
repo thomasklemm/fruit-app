@@ -1,5 +1,4 @@
 import React from "react";
-import axios from "axios";
 import titleize from "titleize";
 import {
   ActivityIndicator,
@@ -14,40 +13,8 @@ import { Button, ButtonRow } from "../components/Buttons";
 import Headline from "../components/Headline";
 
 export default class ResultsView extends React.Component {
-  state = {
-    isLoading: true,
-    labels: null
-  };
-
-  componentWillMount() {
-    this.fetchLabels();
-  }
-
-  fetchLabels = () => {
-    const { snap } = this.props;
-    axios
-      .post(
-        "https://cxl-services.appspot.com/proxy?url=https%3A%2F%2Fvision.googleapis.com%2Fv1%2Fimages%3Aannotate",
-        {
-          requests: [
-            {
-              image: {
-                content: snap.base64
-              },
-              features: [{ type: "LABEL_DETECTION", maxResults: 6 }]
-            }
-          ]
-        }
-      )
-      .then(response => {
-        const labels = response.data.responses[0].labelAnnotations;
-        this.setState({ isLoading: false, labels: labels });
-      });
-  };
-
   render() {
-    const { snap, resetSnap } = this.props;
-    const { isLoading, labels } = this.state;
+    const { snap, labels, resetSnap } = this.props;
     return (
       <View style={{ flex: 1 }}>
         <ImageBackground
@@ -56,7 +23,7 @@ export default class ResultsView extends React.Component {
         >
           <SafeAreaView style={{ flex: 1 }}>
             <Headline>Results</Headline>
-            {isLoading && (
+            {!labels && (
               <View
                 style={{
                   flex: 1,
@@ -73,7 +40,7 @@ export default class ResultsView extends React.Component {
                 </View>
               </View>
             )}
-            {!isLoading && (
+            {labels && (
               <ScrollView>
                 {labels.map(label => (
                   <LabelCard label={label} key={label.description} />
