@@ -115,6 +115,10 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   labelCardContainer: {
+    flex: 1,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-between",
     marginTop: 16,
     marginLeft: 16,
     marginRight: 16,
@@ -126,11 +130,13 @@ const styles = StyleSheet.create({
     borderRadius: 6
   },
   labelCardHeadline: {
+    alignSelf: "flex-start",
     fontSize: 20,
     fontWeight: "bold",
     color: "white"
   },
   labelCardScore: {
+    alignSelf: "flex-end",
     fontSize: 20,
     fontStyle: "italic",
     color: "white"
